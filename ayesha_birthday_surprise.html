@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Ayesha — A Birthday Surprise</title>
+<style>
+:root{--pink:#f8cbd6;--rose:#d96c8b;--wine:#71364f;--cream:#fff8f5;--ink:#4c2938}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Georgia,'Times New Roman',serif;color:var(--ink);background:#fff4f4;overflow-x:hidden}
+button,input{font:inherit}
+button{cursor:pointer}
+#hearts{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.heart{position:absolute;bottom:-40px;color:#e79aaf;opacity:.45;animation:floatUp linear infinite}
+@keyframes floatUp{to{transform:translateY(-115vh) rotate(25deg);opacity:0}}
+#gate{min-height:100svh;display:grid;place-items:center;padding:24px;position:relative;z-index:2;background:radial-gradient(circle at 20% 20%,#fff 0 7%,transparent 30%),linear-gradient(135deg,#fff2f3,#f7d6df 55%,#fcece8)}
+.gate-card{width:min(440px,100%);padding:42px 30px;text-align:center;background:#ffffffc9;border:1px solid #fff;box-shadow:0 25px 80px #9d53632b;border-radius:28px;backdrop-filter:blur(12px)}
+.eyebrow{letter-spacing:.24em;text-transform:uppercase;font:11px Arial,sans-serif;color:#a45d75}
+h1,h2,p{margin-top:0}
+.gate-card h1{font-size:clamp(38px,9vw,58px);font-weight:400;margin:14px 0 8px;color:#793b56}
+.gate-card p{line-height:1.7;color:#85576a}
+.lock-icon{font-size:34px;margin:16px 0}
+#passcode{width:100%;padding:15px;border:1px solid #e8bdca;border-radius:14px;background:#fff;text-align:center;letter-spacing:.25em;outline:none;color:#71364f}
+#passcode:focus{border-color:#c56c89;box-shadow:0 0 0 3px #f4dce4}
+.primary{border:0;border-radius:999px;padding:14px 24px;background:linear-gradient(110deg,#b95d7c,#e99aaf);color:white;box-shadow:0 10px 24px #b95d7c33;transition:.25s}
+.primary:hover{transform:translateY(-2px);box-shadow:0 14px 28px #b95d7c44}
+#unlock{width:100%;margin-top:13px}
+#gateError{min-height:20px;margin:12px 0 0;color:#b33c61;font:13px Arial,sans-serif}
+#site{display:none;position:relative;z-index:1}
+.topbar{position:fixed;z-index:10;top:14px;left:50%;transform:translateX(-50%);width:min(920px,calc(100% - 28px));display:flex;align-items:center;justify-content:space-between;padding:10px 15px;border:1px solid #fff9;background:#fff9;border-radius:999px;backdrop-filter:blur(14px);box-shadow:0 8px 30px #793b5610}
+.brand{font-size:17px;color:#8b4962;letter-spacing:.05em}
+.progress{display:flex;gap:6px}
+.dot{width:7px;height:7px;border-radius:50%;background:#e8c3cf;transition:.3s}
+.dot.active{width:22px;border-radius:10px;background:#bd6d88}
+.page{min-height:100svh;position:relative;display:flex;align-items:center;justify-content:center;padding:100px 22px 70px;overflow:hidden}
+.page-inner{width:min(980px,100%);position:relative;z-index:1;text-align:center}
+.page:before{content:"AYESHA";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-13deg);font:900 clamp(70px,17vw,190px)/1 Arial,sans-serif;letter-spacing:.08em;color:#a9577220;white-space:nowrap;pointer-events:none}
+#p1{background:linear-gradient(145deg,#fff7f4,#f9dce3 55%,#f5c9d5)}
+#p2{background:linear-gradient(145deg,#fff9f3,#fbe6e7 50%,#f5d2dd)}
+#p3{background:linear-gradient(145deg,#fcecf0,#fff9f5 55%,#f5d8df)}
+#p4{background:linear-gradient(145deg,#fff7f2,#f5d8df)}
+#p5{background:linear-gradient(145deg,#f8dce5,#fff8f5 55%,#f8e5df)}
+.hero-kicker{font:12px Arial,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#a35a73}
+.hero-title{font-size:clamp(56px,12vw,112px);line-height:.92;font-weight:400;color:#793b56;margin:22px 0}
+.hero-title em{font-weight:400;color:#c36f89}
+.sub{font-size:clamp(16px,2.6vw,21px);line-height:1.8;color:#815467;max-width:650px;margin:0 auto 26px}
+.scroll-hint{margin-top:34px;font:11px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#a35a73;animation:bob 1.8s infinite}
+@keyframes bob{50%{transform:translateY(7px)}}
+.section-title{font-size:clamp(38px,8vw,66px);font-weight:400;color:#793b56;margin:0 0 14px}
+.section-copy{font-size:18px;line-height:1.8;color:#805366;max-width:650px;margin:0 auto 24px}
+.cake-wrap{margin:25px auto 20px;position:relative;width:230px;height:220px}
+.cake{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:190px;height:105px;background:linear-gradient(#ffe5e8 0 18%,#d9879d 18% 24%,#fff0e9 24% 100%);border-radius:18px 18px 12px 12px;box-shadow:0 14px 25px #9e536326}
+.cake:before{content:"";position:absolute;top:-22px;left:0;width:100%;height:42px;border-radius:50%;background:#fff0e9;border-bottom:8px solid #e8a4b5}
+.cake:after{content:"";position:absolute;top:16px;left:0;width:100%;height:14px;background:repeating-radial-gradient(ellipse at 10px 0,#d77d96 0 5px,transparent 6px 19px)}
+.candle{position:absolute;z-index:2;bottom:112px;left:50%;transform:translateX(-50%);width:12px;height:56px;border-radius:5px;background:repeating-linear-gradient(45deg,#fff 0 6px,#e99aae 6px 11px);box-shadow:0 0 0 1px #d98a9d}
+.flame{position:absolute;left:50%;top:-28px;transform:translateX(-50%);width:17px;height:26px;background:radial-gradient(ellipse at 50% 70%,#fff6a8 0 20%,#ffc35c 40%,#ff8a45 70%,transparent 72%);border-radius:50% 50% 45% 45%;filter:drop-shadow(0 0 9px #ffb34c);animation:flicker .7s infinite alternate}
+@keyframes flicker{from{transform:translateX(-50%) rotate(-5deg) scale(.94)}to{transform:translateX(-50%) rotate(5deg) scale(1.06)}}
+.candle.blown .flame{display:none}
+.smoke{display:none;position:absolute;left:50%;top:-32px;width:24px;height:38px;border-left:3px solid #b8a5a8;border-radius:50%;transform:translateX(-50%);opacity:.7;animation:smoke 1.3s ease-out forwards}
+.candle.blown .smoke{display:block}
+@keyframes smoke{to{transform:translate(-50%,-35px) scale(1.5);opacity:0}}
+.cake-note{font:13px Arial,sans-serif;color:#9a6478;margin:4px 0 18px}
+.controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.secondary{border:1px solid #dca5b5;background:#fff9;color:#8a4962;border-radius:999px;padding:12px 20px}
+.wish-card{max-width:700px;margin:24px auto;padding:clamp(24px,5vw,45px);background:#ffffffb8;border:1px solid #fff;border-radius:26px;box-shadow:0 18px 50px #96546a12}
+.wish-card p{font-size:clamp(18px,3vw,24px);line-height:1.8;color:#805366}
+.signature{font-style:italic;color:#b36580;font-size:22px}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:720px;margin:25px auto}
+.photo-slot{aspect-ratio:1;border:2px dashed #dba5b6;border-radius:18px;display:grid;place-items:center;overflow:hidden;background:#fff8;color:#a15c75;font:13px Arial,sans-serif;padding:8px}
+.photo-slot img{width:100%;height:100%;object-fit:cover}
+.upload-label{display:inline-block;border:1px solid #dca5b5;background:#fff9;color:#8a4962;border-radius:999px;padding:11px 18px;font:13px Arial,sans-serif;cursor:pointer}
+#photos{display:none}
+.editor{width:min(620px,100%);margin:20px auto;background:#ffffffb8;border:1px solid #fff;border-radius:20px;padding:20px;text-align:left}
+.editor label{display:block;font:12px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#9b5b73;margin:10px 0 6px}
+.editor input,.editor textarea{width:100%;border:1px solid #e7bfca;border-radius:12px;padding:12px;background:#fff;color:#71364f;outline:none}
+.editor textarea{min-height:90px;resize:vertical}
+.page-nav{display:flex;justify-content:center;gap:12px;margin-top:25px}
+.final-heart{font-size:58px;color:#d77f99;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{transform:scale(1.15)}}
+@media(max-width:600px){.topbar{top:8px}.page{padding-top:90px}.gallery{gap:7px}.photo-slot{border-radius:12px}.brand{font-size:14px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div id="hearts"></div>
+<section id="gate">
+ <div class="gate-card">
+  <div class="eyebrow">A little surprise awaits</div>
+  <div class="lock-icon">♡</div>
+  <h1>For Ayesha</h1>
+  <p>A tiny birthday world made just for you.<br>Enter the secret passcode to open it.</p>
+  <input id="passcode" type="password" placeholder="ENTER PASSCODE" aria-label="Passcode">
+  <button class="primary" id="unlock">Unlock your surprise ♡</button>
+  <div id="gateError">Hint: the default passcode is AYESHA</div>
+ </div>
+</section>
+<main id="site">
+ <nav class="topbar"><div class="brand">♡ Ayesha's Birthday</div><div class="progress" id="progress"></div><div style="font:11px Arial,sans-serif;color:#9a6075">A DAY FOR YOU</div></nav>
+ <section class="page" id="p1">
+  <div class="page-inner">
+   <div class="hero-kicker">A special day • A special soul</div>
+   <h1 class="hero-title">Happy Birthday<br><em>Ayesha</em></h1>
+   <p class="sub">Today, the world gets a little brighter because it's the day you came into it. This little place is filled with warm wishes, sweet memories and love.</p>
+   <button class="primary" onclick="goTo(1)">Open your surprise ✨</button>
+   <div class="scroll-hint">Scroll or swipe to continue ↓</div>
+  </div>
+ </section>
+ <section class="page" id="p2">
+  <div class="page-inner">
+   <div class="hero-kicker">Make a wish</div>
+   <h2 class="section-title">One little birthday candle</h2>
+   <p class="section-copy">Close your eyes, make your sweetest wish, then blow toward your microphone — or tap the candle to blow it out.</p>
+   <div class="cake-wrap"><div class="cake"></div><div class="candle" id="candle"><div class="flame"></div><div class="smoke"></div></div></div>
+   <div class="cake-note" id="candleStatus">Your wish is ready to take flight ♡</div>
+   <div class="controls">
+    <button class="primary" id="micBtn">🎤 Blow with microphone</button>
+    <button class="secondary" id="tapBlow">Tap to blow candle</button>
+    <button class="secondary" id="relight" style="display:none">Light it again</button>
+   </div>
+   <div class="page-nav"><button class="secondary" onclick="goTo(0)">Back</button><button class="primary" onclick="goTo(2)">Continue to wishes →</button></div>
+  </div>
+ </section>
+ <section class="page" id="p3">
+  <div class="page-inner">
+   <div class="hero-kicker">A wish for every moment</div>
+   <h2 class="section-title">The sweetest wishes</h2>
+   <div class="wish-card">
+    <p>May your days be filled with laughter, your heart with peace, and your dreams with beautiful beginnings.</p>
+    <p>May you always find reasons to smile, courage for every new step, and people who remind you how wonderful you are.</p>
+    <p>May this new chapter bring you kindness, joy, little adventures and countless moments worth remembering.</p>
+    <div class="signature">With all my best wishes ♡</div>
+   </div>
+   <div class="page-nav"><button class="secondary" onclick="goTo(1)">Back</button><button class="primary" onclick="goTo(3)">Next page →</button></div>
+  </div>
+ </section>
+ <section class="page" id="p4">
+  <div class="page-inner">
+   <div class="hero-kicker">Little moments, lovely memories</div>
+   <h2 class="section-title">Your memory gallery</h2>
+   <p class="section-copy">Add your favourite pictures here. Choose up to three photos and they'll appear in this little gallery.</p>
+   <label class="upload-label" for="photos">＋ Upload your pictures</label>
+   <input id="photos" type="file" accept="image/*" multiple>
+   <div class="gallery">
+    <div class="photo-slot">Photo 1</div><div class="photo-slot">Photo 2</div><div class="photo-slot">Photo 3</div>
+   </div>
+   <div class="page-nav"><button class="secondary" onclick="goTo(2)">Back</button><button class="primary" onclick="goTo(4)">One last surprise →</button></div>
+  </div>
+ </section>
+ <section class="page" id="p5">
+  <div class="page-inner">
+   <div class="hero-kicker">A message from the heart</div>
+   <div class="final-heart">♡</div>
+   <h2 class="section-title">A note just for you</h2>
+   <div class="editor">
+    <label for="noteTitle">Your heading</label><input id="noteTitle" value="To my favourite person">
+    <label for="myMessage">Write your own birthday message</label>
+    <textarea id="myMessage">Ayesha, I hope your birthday is as lovely and special as you are. Thank you for being you. May this year bring you everything that makes your heart happy. Happy Birthday! ♡</textarea>
+    <button class="primary" style="margin-top:12px" onclick="showNote()">Show my message</button>
+   </div>
+   <div class="wish-card" id="notePreview" style="display:none"><h2 id="previewTitle" class="section-title" style="font-size:32px"></h2><p id="previewText"></p></div>
+   <p class="section-copy">Happy Birthday, Ayesha. May your every tomorrow be even more beautiful than today. ♡</p>
+   <button class="primary" onclick="goTo(0)">Start the surprise again ↻</button>
+  </div>
+ </section>
+</main>
+<script>
+const DEFAULT_PASSCODE='AYESHA'; // Change this to your own secret passcode.
+const gate=document.getElementById('gate'),site=document.getElementById('site');
+function unlock(){const value=document.getElementById('passcode').value.trim();if(value.toUpperCase()===DEFAULT_PASSCODE){gate.style.display='none';site.style.display='block';document.getElementById('gateError').textContent='';goTo(0);}else{document.getElementById('gateError').textContent='That passcode is not quite right. Try again ♡';}}
+document.getElementById('unlock').addEventListener('click',unlock);
+document.getElementById('passcode').addEventListener('keydown',e=>{if(e.key==='Enter')unlock();});
+const pages=[...document.querySelectorAll('.page')],progress=document.getElementById('progress');
+pages.forEach((_,i)=>{const d=document.createElement('span');d.className='dot'+(i===0?' active':'');progress.appendChild(d);});
+function goTo(index){pages[index].scrollIntoView({behavior:'smooth'});document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===index));}
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){const i=pages.indexOf(e.target);document.querySelectorAll('.dot').forEach((d,j)=>d.classList.toggle('active',i===j));}}),{threshold:.55});
+pages.forEach(p=>observer.observe(p));
+let touchStartY=0;
+document.addEventListener('touchstart',e=>{touchStartY=e.changedTouches[0].screenY;},{passive:true});
+document.addEventListener('touchend',e=>{if(site.style.display==='none')return;const delta=touchStartY-e.changedTouches[0].screenY;if(Math.abs(delta)>85){const current=pages.findIndex(p=>{const r=p.getBoundingClientRect();return r.top<innerHeight*.45&&r.bottom>innerHeight*.45});goTo(Math.max(0,Math.min(pages.length-1,current+(delta>0?1:-1))));}},{passive:true});
+const candle=document.getElementById('candle'),status=document.getElementById('candleStatus'),micBtn=document.getElementById('micBtn'),relight=document.getElementById('relight');
+function blow(){candle.classList.add('blown');status.textContent='Wish sent into the universe! Happy Birthday, Ayesha! ♡';micBtn.textContent='✨ Candle blown!';micBtn.disabled=true;relight.style.display='inline-block';}
+document.getElementById('tapBlow').addEventListener('click',blow);
+relight.addEventListener('click',()=>{candle.classList.remove('blown');status.textContent='Your wish is ready to take flight ♡';micBtn.textContent='🎤 Blow with microphone';micBtn.disabled=false;relight.style.display='none';});
+micBtn.addEventListener('click',async()=>{if(!navigator.mediaDevices?.getUserMedia){status.textContent='Microphone is not available here — tap the candle instead.';return;}try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});const ctx=new (window.AudioContext||window.webkitAudioContext)();const analyser=ctx.createAnalyser();const source=ctx.createMediaStreamSource(stream);source.connect(analyser);analyser.fftSize=1024;const data=new Uint8Array(analyser.frequencyBinCount);status.textContent='Listening… blow gently toward your microphone!';micBtn.disabled=true;let loud=0,elapsed=0;const timer=setInterval(()=>{analyser.getByteTimeDomainData(data);let sum=0;for(const x of data){const v=(x-128)/128;sum+=v*v;}const rms=Math.sqrt(sum/data.length);if(rms>.12)loud++;elapsed++;if(loud>=3){clearInterval(timer);stream.getTracks().forEach(t=>t.stop());ctx.close();blow();}else if(elapsed>35){clearInterval(timer);stream.getTracks().forEach(t=>t.stop());ctx.close();micBtn.disabled=false;status.textContent='No blow detected. Try again or tap the candle.';}},100);}catch(err){status.textContent='Please allow microphone access, or tap the candle to blow it out.';micBtn.disabled=false;}});
+document.getElementById('photos').addEventListener('change',e=>{const files=[...e.target.files].slice(0,3);const slots=document.querySelectorAll('.photo-slot');slots.forEach((slot,i)=>{slot.innerHTML='Photo '+(i+1);if(files[i]){const img=document.createElement('img');img.src=URL.createObjectURL(files[i]);img.alt='Uploaded memory '+(i+1);slot.innerHTML='';slot.appendChild(img);}});});
+function showNote(){document.getElementById('previewTitle').textContent=document.getElementById('noteTitle').value||'A note for you';document.getElementById('previewText').textContent=document.getElementById('myMessage').value;document.getElementById('notePreview').style.display='block';}
+const hearts=document.getElementById('hearts');for(let i=0;i<22;i++){const h=document.createElement('span');h.className='heart';h.textContent=['♡','♥','✧'][i%3];h.style.left=(Math.random()*100)+'%';h.style.fontSize=(12+Math.random()*20)+'px';h.style.animationDuration=(9+Math.random()*12)+'s';h.style.animationDelay=(-Math.random()*18)+'s';hearts.appendChild(h);}
+</script>
+</body>
+</html>
